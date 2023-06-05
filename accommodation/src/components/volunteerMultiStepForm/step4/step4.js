@@ -1,3 +1,4 @@
+
 import React, { useContext } from "react";
 import { MultiStepContext } from "../../stepContext/stepContext";
 import styled from "styled-components";
@@ -201,6 +202,9 @@ const Step4 = () => {
                 </div>
                 <div style={{fontSize:"13px"}}>
                   Other Available Amenities
+                </div>
+                <div class="form-group" style={{marginTop: "2%"}}>
+                  <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" style={{width:"80%"}}></textarea>
                 </div>
               </fieldset>
             </div>

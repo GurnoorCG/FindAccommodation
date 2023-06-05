@@ -1,6 +1,7 @@
+
 import React, { useContext, useState,useRef ,useEffect} from "react";
 // import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link,  } from "react-router-dom";
 import "./login.css";
 import cgLogo from "../../images/cgLogo.png";
 import building from "../../images/cgBuilding.svg";
@@ -25,6 +26,7 @@ const LOGIN_URL = '/login';
 const Login = () => {
   const userRef = useRef();
   // const {isLoggedIn,setIsLoggedIn} = useLogin();
+  const {logIn} = useContext(MultiStepContext)
   const { setAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -79,9 +81,15 @@ const Login = () => {
           token:response.data.token,
           email:response.data.response[0].email,
           id:response.data.response[0].id,
-          firstName:response.data.response[0].firstname,
-          lastName:response.data.response[0].lastname,
-          lastLogin:response.data.response[0].lastlogin
+          firstName:response.data.response[0].firstName,
+          lastName:response.data.response[0].lastName,
+          lastLogin:response.data.response[0].lastLogin,
+          isVerified:response.data.response[0].isVerified,
+          university:response.data.response[0].university,
+          contact:response.data.response[0].contact,
+          profileImage:response.data.response[0].profileImage
+
+
         };
         
         console.log(response.data.response[0].id);
@@ -93,6 +101,7 @@ const Login = () => {
         setAuth({ email, password, token });
         navigate(from, { replace: true });
         // setIsLoggedIn(true)
+        logIn(true);
 
       })
       .catch((error) => {
@@ -164,7 +173,7 @@ const Login = () => {
                     <form onSubmit={handleSubmit}>
                       <div>
                         <label for="email" className="form-label">
-                          Email ID
+                          Email ID <span style={{color:"#dd2727"}}><strong>*</strong></span>  
                         </label>
                         <input
                           type="email"
@@ -192,7 +201,7 @@ const Login = () => {
                           className="form-label"
                           style={{ marginTop: "1rem" }}
                         >
-                          Password
+                          Password <span style={{color:"#dd2727"}}><strong>*</strong></span>
                         </label>
 
                         <input
@@ -291,5 +300,3 @@ const Login = () => {
 };
 
 export default Login;
-
-

@@ -44,9 +44,9 @@ const InternSignUp = () => {
 
   const handleAdhaarNumberChange = (event) => {
     const { value } = event.target;
-    const formattedValue = value.replace(/\D/g, "").replace(/(.{4})/g, "$1 ");
+    let formattedValue = value.replace(/\D/g, "").replace(/(.{4})/g, "$1 ");
     if (formattedValue.trim().length <= 14) {
-      setAadharCard(formattedValue.trim());
+      setAadharCard(formattedValue.trim().replaceAll(" ","-"));
     }
     setIsAdhaarNumberValid(
       formattedValue.length === 0 || formattedValue.trim().length < 14
@@ -104,6 +104,7 @@ const InternSignUp = () => {
         console.log(response.data);
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("email", email);
+        //change some state here to go to internOtp
         navigate("/internOtp");
       })
       .catch((error) => {
@@ -273,7 +274,7 @@ const InternSignUp = () => {
           </div>
         </form>
         <div className="row mb-4">
-          <Link className="alink" to="/login"  style={{color:'#28519E' , fontWeight:'500'}}>
+          <Link className="alink" to="/"  style={{color:'#28519E' , fontWeight:'500'}}>
             Already have an account? Login
           </Link>
         </div>

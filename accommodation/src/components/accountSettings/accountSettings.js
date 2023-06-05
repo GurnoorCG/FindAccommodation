@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect,useRef} from "react";
 import { Wrapper, Container } from "../utilityStyles/utilityStyles";
 import Navbar from "../navbar/navbar";
 import Profile from "./profile/profile";
@@ -9,6 +9,11 @@ import "./accountSettings.css"
 
 
 const AccountSettings = () => {
+  const buttonRef = useRef(null);
+  useEffect(() => {
+    
+    buttonRef.current.click();
+  }, []);
   const [activeButton, setActiveButton] = useState("");
   
 
@@ -50,35 +55,40 @@ const AccountSettings = () => {
               <h4>Settings</h4>
             </div>
             <div className="row" style={{marginTop:"1rem"}}>
-              <div className="col-sm-4 accountsettings__container">
+              <div className="col-sm-4 accountsettings__leftcontainer">
                 <div className="d-grid gap-2">
                   <button
-                    className={`btn btn-primary${
+                    className={`btn${
                       activeButton === "profile" ? " active" : ""
                     }`}
+                    id="accountSettingsButton"
                     onClick={() => handleButtonClick("profile")}
+                    ref={buttonRef}
+                    
                   >
                     Your Profile
                   </button>
                   <button
-                    className={`btn btn-primary${
+                    className={`btn ${
                       activeButton === "password" ? " active" : ""
                     }`}
+                    id="accountSettingsButton"
                     onClick={() => handleButtonClick("password")}
                   >
                     Change Password
                   </button>
                   <button
-                    className={`btn btn-primary${
+                    className={`btn ${
                       activeButton === "volunteer" ? " active" : ""
                     }`}
+                    id="accountSettingsButton"
                     onClick={() => handleButtonClick("volunteer")}
                   >
-                    Volunteer Post
+                    Volunteer / Requirement Post
                   </button>
                 </div>
               </div>
-              <div className="col-sm-8 accountsettings__container">{renderComponent()}</div>
+              <div className="col-sm-8 accountsettings__rightcontainer">{renderComponent()}</div>
             </div>
           </div>
         </Container>
