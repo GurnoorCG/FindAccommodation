@@ -22,13 +22,12 @@ import axios1 from "../api/axios";
 import { useLocation } from "react-router-dom";
 import NoInterest from "../noInterest/noInterest";
 import NoNortification from "../noNotifications/noNortification";
-import chevron from "../../images/chevron-right-solid.svg"
+import chevron from "../../images/chevron-right-solid.svg";
 import { staticInterest, staticNotification } from "./staticData";
 
 
+
 const LandingPage = (props) => {
-  const url_locaton = useLocation();
-  console.log(url_locaton);
   const INTEREST_URL = "/sentInterest";
   const [interestData, setInterestData] = useState(staticInterest);
   const [interestLength, setInterestLength] = useState([]);
@@ -40,21 +39,15 @@ const LandingPage = (props) => {
   const [acceptedNotifications, setAcceptedNotifications] = useState([]);
   const [unAcceptedNotifications, setUnAcceptedNotifications] = useState([]);
   const [notificationData, setNotificationData] = useState(staticNotification);
+  const [loading, setloading] = useState(true);
 
   const navigate = useNavigate();
 
-  const {
-    currentUser,
-    availableAccommodations,
-    setAvailableAccommodations,
-    isLoggedIn,
-  } = useContext(MultiStepContext);
-  console.log("value of isLoggedIn in landing page", isLoggedIn);
+  
 
   const userData = localStorage.getItem("userData");
 
   const [data, setData] = useState(JSON.parse(userData));
-  console.log(data.id);
 
   async function handleInterest() {
     await axios1
@@ -76,17 +69,18 @@ const LandingPage = (props) => {
         setUnAcceptedNotifications(response.data.unAcceptedRequest);
       });
   }
-  
-  const currentTime = new Date();
-  let mergedNotifications;
-  
 
-  async function merge() {
-    mergedNotifications = [...acceptedNotifications, ...unAcceptedNotifications];
-    mergedNotifications.sort((a, b) => {
+  const currentTime = new Date();
+
+  function merge() {
+    let mergedNotificationsData = [
+      ...acceptedNotifications,
+      ...unAcceptedNotifications,
+    ];
+    mergedNotificationsData.sort((a, b) => {
       return b.createdate - a.createdate;
     });
-    setNotificationData(mergedNotifications);
+    return setNotificationData(mergedNotificationsData);
 
     // const updatedNotifications = mergedNotifications.map((notification) => {
     //   const createtime = new Date(notification.createtime);
@@ -94,7 +88,7 @@ const LandingPage = (props) => {
     //   const timeDifference = currentTime - notification.createtime;
     //   console.log(timeDifference);
     //   const minutesDifference = Math.floor(timeDifference / (1000 * 60)); // Convert milliseconds to minutes
-  
+
     //   return {
     //     ...notification,
     //     timeDifference: minutesDifference,
@@ -103,23 +97,26 @@ const LandingPage = (props) => {
 
     // setNotificationData(updatedNotifications);
   }
-  
 
-  async function handleLanding() {
-    await axios
-      .get("https://cg-accommodation.azurewebsites.net/")
-      .then((response) => {})
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  // async function handleLanding() {
+  //   await axios
+  //     .get("https://cg-accommodation.azurewebsites.net/")
+  //     .then((response) => {})
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
   useEffect(() => {
     handleNotifications();
     merge();
-    handleLanding();
+    // handleLanding();
     handleInterest();
-  }, []);
+
+    setTimeout(() => {
+      return setloading(false);
+    }, 5000);
+  }, [loading]);
 
   const handleAvailableAccommodation = (event) => {
     event.preventDefault();
@@ -129,15 +126,9 @@ const LandingPage = (props) => {
         navigate("/availableaccommodationsonly");
       })
       .catch((error) => {
-        // Handle error
         console.log(error);
       });
   };
-
-  {console.log(interestData);}
-  {console.log(notificationData)}
-  {console.log(acceptedNotifications)}
-  {console.log(unAcceptedNotifications)}
 
   const handleOpenrequirements = (event) => {
     event.preventDefault();
@@ -295,90 +286,93 @@ const LandingPage = (props) => {
               <ShortlistContainer className="col-md-6">
                 <p className="landingPage__head" style={{ color: "black" }}>
                   Interest Sent
-                  <span className={interestData.length === 0 ? "d-none" : "showLink"}>
-                  <Link
-                    to="/interestsent"
-                    style={{ fontSize: "16px" }}
+                  <span
+                    className={
+                      interestData.length === 0 ? "d-none" : "showLink"
+                    }
                   >
-                   See All <img src={chevron} />
-                  </Link>
+                    <Link to="/interestsent" style={{ fontSize: "16px" }}>
+                      See All <img src={chevron} />
+                    </Link>
                   </span>
                 </p>
-                
-                { interestData.length !== 0 ? ( 
-                  <div className="container landing__scrollbar">
-                 
-                  {interestData.slice(0, maxInterestToShow).map((data) => (
-                    <div
-                      key={data.id}
-                      className="col interest__container"
-                      style={{ marginBottom: "1rem" }}
-                    >
-                      <div className="row">
-                        <div
-                          className="col interest__name"
-                          style={{ marginTop: "1rem" }}
-                        >
-                          <div style={{ display: "flex" }}>
-                            <div style={{ marginRight: "1rem" }}>
-                              <img className="img-fluid" src={Interest} />
-                            </div>
-                            <div>
-                              <Link>
-                                {data.firstname} {data.lastname}
-                              </Link>
-                              <p
-                                style={{ color: "#8E8E92", fontSize: "0.8rem" }}
-                              >
-                                {data.cgiid}
-                              </p>
+
+                <div className="scroll-bar">
+                  {interestData.length !== 0 ? (
+                    interestData.slice(0, maxInterestToShow).map((data,index) => (
+                      <div
+                        key={data.id}
+                        className="col interest__container"
+                        style={{ marginBottom: "1rem" }}
+                      >
+                        <div className="row">
+                          <div
+                            className="col interest__name"
+                            style={{ marginTop: "1rem" }}
+                          >
+                            <div style={{ display: "flex" }}>
+                              <div style={{ marginRight: "1rem" }}>
+                                <img className="img-fluid" src={Interest} />
+                              </div>
+                              <div>
+                                <Link>
+                                  {data.firstname} {data.lastname}
+                                </Link>
+                                <p
+                                  style={{
+                                    color: "#8E8E92",
+                                    fontSize: "0.8rem",
+                                  }}
+                                >
+                                  {data.cgiid}
+                                </p>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div
-                          className="col-12"
-                          style={{ marginBottom: "1rem" }}
-                        >
-                          <p
-                            className="interest__para"
-                            style={{ marginBottom: "0.3rem" }}
+                          <div
+                            className="col-12"
+                            style={{ marginBottom: "1rem" }}
                           >
-                            LandMark : {data.locality}
-                          </p>
+                            <p
+                              className="interest__para"
+                              style={{ marginBottom: "0.3rem" }}
+                            >
+                              LandMark : {data.locality}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-
-                    
-                  ))}
-                  </div>
-                 ) :
-                <NoInterest />
-                }
+                    ))
+                  ) : (
+                    <NoInterest />
+                  )}
+                </div>
               </ShortlistContainer>
               <NotificationContainer className=" col-md-6">
                 <p className="landingPage__head" style={{ color: "black" }}>
                   Notifications
-                  <span className={interestData.length === 0 ? "d-none" : "showLink"}>
-                  <Link
-                    to="/notifications"
-                    style={{fontSize: "16px" }}
+                  <span
+                    className={
+                      notificationData.length === 0 ? "d-none" : "showLink"
+                    }
                   >
-                    See All <img src={chevron} />
-                  </Link>
+                    <Link to="/notifications" style={{ fontSize: "16px" }}>
+                      See All <img src={chevron} />
+                    </Link>
                   </span>
                 </p>
-                {  notificationData.length !== 0 ? ( 
-                    notificationData.slice(0, maxNotificationsToShow).map((data) => (
+                <div className="scroll-bar">
+                  { !loading ? notificationData.map((data) => (
                     <div
+                    
                       key={data.id}
                       style={{ marginBottom: "1rem" }}
                     >
                     { data.isrequestaccepted ? 
                       <div className="container-fluid notification_accepted_container" style={{padding:"0.75rem 0.75rem 1rem 1rem"}}>
                         <div className="row">
-                          <div className="col-1">
-                            <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}}/>
+                          <div className="col-1" style={{marginRight:'1rem'}}>
+                            <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}} alt="img"/>
                           </div>
                           <div className="col">
                             <div>
@@ -394,8 +388,8 @@ const LandingPage = (props) => {
                       : 
                         <div className="container-fluid notification_unaccepted_container" style={{padding:"0.75rem 0.75rem 1rem 1rem"}}>
                         <div className="row">
-                          <div className="col-1">
-                            <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}}/>
+                          <div className="col-1" style={{marginRight:'1rem'}}>
+                            <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}} alt="img"/>
                           </div>
                           <div className="col">
                             <div>
@@ -408,9 +402,8 @@ const LandingPage = (props) => {
                       </div>
                   }
                 </div>
-                ))) :
-                <NoNortification />
-                } 
+                )): <NoNortification />}
+                </div>
               </NotificationContainer>
             </DynamicContainer>
           </div>

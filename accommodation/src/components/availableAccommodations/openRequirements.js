@@ -1,52 +1,19 @@
-import React from "react";
-// import Data from "./dummyData";
-// import Navbar from "../navbar/navbar";
+import {React , useState} from "react";
 import Blueright_arrow from "../../images/Blueright-arrow.svg";
-import gps from "../../images/GPS.svg";
-import office from "../../images/office.svg";
-import metro from "../../images/Metrotransit.svg";
 import greencheck from "../../images/Check-outlinegreen check.svg";
 import userphoto from "../../images/userphoto.svg";
-// import search from "../../images/search.svg";
-// import location from "../../images/location.svg";
-import allowed from "../../images/allowed.svg";
-import not_allowed from "../../images/Not Allowed.svg";
-import clock from "../../images/clock.svg";
-import owner_name from "../../images/owner name.svg";
-import call from "../../images/call.svg";
 import greentick from "../../images/greentickfinal.svg";
-import femaleIcon from "../../images/femaleIcon.svg";
-// import { Wrapper, Container } from "../utilityStyles/utilityStyles";
 import "./openRequirements.css";
 import Date from "../../images/date.svg";
 import Currency from "../../images/currency_rupee.svg";
 import vector from '../../images/alert.svg'
 
 const OpenRequirements = (props) => {
-  // const [message, setMessage] = useState("");
-  // const [mapaddress, setMapAddress] = useState("Pinnacle Business Park");
 
-  // const handlemessageText = (event) => {
-  //   const { value } = event.target;
-  //   setMessage(value);
-  // };
-
-  // const findAddressmap = (event) => {
-  //   const { value } = event.target;
-  //   setMapAddress(value);
-  // };
-
-  // const handleSubmit = () => {
-  //   const data = {
-  //     messgae: message,
-  //     // mapaddress: mapaddress,
-  //   };
-
-  //   console.log(data);
-  // }
-
+  const userData = JSON.parse(localStorage.getItem("userData"));
  
-
+  const [openRequirementUserData, setOpenRequirementUserData] = useState(userData);
+  // setLocalData(JSON.parse(userData));
   function checkAccType(info) {
     if (info["1rk"] == true) {
       return "1 RK";
@@ -98,7 +65,6 @@ const OpenRequirements = (props) => {
           className=" scrollbar col-12"
           style={{ backgroundColor: "#F5F5F5" }}
         >
-          {console.log(props)}
           <div className=" row row-cols-md-3 ">
             {props.sendingData.map((data, index) => (
               <div key={data.requirementid}>
@@ -109,7 +75,7 @@ const OpenRequirements = (props) => {
                   <div className="p-3">
                     <div className="d-flex mb-3">
                       <div className="me-2">
-                        <img src={data.profileimage} height="40px" width="40px" style={{borderRadius:"50%"}} alt="" />
+                        <img src={data.profileimage} height="40px" width="40px" style={{borderRadius:"50%"}} alt="img" />
                       </div>
                       <div className="ms-1">
                         <div
@@ -121,7 +87,7 @@ const OpenRequirements = (props) => {
                           <p className="mb-1 availableAcco__card-p-name">
                             {data.firstname} {data.lastname}
                           </p>
-                          <img src={Blueright_arrow} alt="" />
+                          <img src={Blueright_arrow} alt="logo" />
                         </div>
 
                         <div className="d-flex">
@@ -134,7 +100,7 @@ const OpenRequirements = (props) => {
                           >
                             <img
                               src={greentick}
-                              alt=""
+                              alt="logo"
                               style={{ margin: "0.31rem 0.31rem 0.5rem" }}
                             />
                             <p
@@ -164,7 +130,7 @@ const OpenRequirements = (props) => {
                     </div>
 
                     <div className="d-flex" style={{ marginBottom: "1rem" }}>
-                      <img src={greencheck} alt="" />
+                      <img src={greencheck} alt="logo" />
                       <p className="openRequirements__card-p-green">
                         I am looking for a room-mate
                       </p>
@@ -178,8 +144,7 @@ const OpenRequirements = (props) => {
                         Accommodation Type:
                       </p>
                       <p>
-                      {data.acctypename} | {checkAccType(data)}  {data.acctypename == "flat" ? `| ${checkFurnished(data)}` : checkFurnished(data) } 
-                      
+                      {data.acctypename} | {checkAccType(data)}  {data.acctypename === "flat" ? `| ${checkFurnished(data)}` : checkFurnished(data) } 
                       </p>
                     </div>
 
@@ -188,7 +153,7 @@ const OpenRequirements = (props) => {
                         Relocation Date
                       </p>
                       <div className="d-flex">
-                        <img src={Date} />
+                        <img src={Date} alt="logo"/>
                         <p
                           style={{ marginBottom: "0rem", marginLeft: "0.5rem" }}
                         >
@@ -210,17 +175,17 @@ const OpenRequirements = (props) => {
 
                 {/* Modal */}
                 <div
-                  class="modal fade"
+                  className="modal fade"
                   id="exampleModal"
                   tabindex="-1"
                   aria-labelledby="exampleModalLabel"
                   aria-hidden="true"
                 >
-                  <div class="modal-dialog  modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
+                  <div className="modal-dialog  modal-dialog-centered">
+                    <div className="modal-content">
+                      <div className="modal-header">
                         <h5
-                          class="modal-title"
+                          className="modal-title"
                           style={{
                             color: "#343435",
                             fontWeight: "700",
@@ -230,18 +195,18 @@ const OpenRequirements = (props) => {
                         </h5>
                         <button
                           type="button"
-                          class="btn-close"
+                          className="btn-close"
                           data-bs-dismiss="modal"
                           aria-label="Close"
                         ></button>
                       </div>
 
-                      <div class="modal-body">
+                      <div className="modal-body">
                         <form>
                           <div className="row mb-3">
                             <div className="d-flex">
                               <div className="me-1">
-                                <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}}/>
+                                <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}} alt="img"/>
                               </div>
                               <div className="ms-2">
                                 <div className="">
@@ -252,12 +217,13 @@ const OpenRequirements = (props) => {
                                       fontWeight: "700",
                                     }}
                                   >
-                                    {data.firstname} {data.lastname}
+                                    {console.log("data:",openRequirementUserData)}
+                                    {openRequirementUserData.firstName} {openRequirementUserData.lastName}
                                   </p>
                                 </div>
                                 <div className="d-flex">
                                   <p className="mb-0  openRequirements__card-p-id">
-                                    {data.cgiid}
+                                    {openRequirementUserData.cgiid}
                                   </p>
                                 </div>
                               </div>
@@ -271,6 +237,7 @@ const OpenRequirements = (props) => {
                                   style={{
                                     color: "#343435",
                                     fontWeight: "700",
+                                    marginBottom:"0"
                                   }}
                                 >
                                   Email Id:
@@ -284,9 +251,10 @@ const OpenRequirements = (props) => {
                                   style={{
                                     color: "#343435",
                                     fontWeight: "500",
+                                    
                                   }}
                                 >
-                                {data.email}
+                                {openRequirementUserData.email}
                                 </p>
                               </div>
                           </div>
@@ -298,6 +266,8 @@ const OpenRequirements = (props) => {
                                   style={{
                                     color: "#343435",
                                     fontWeight: "700",
+                                    marginBottom:"0"
+
                                   }}
                                 >
                                   Contact No:
@@ -305,15 +275,7 @@ const OpenRequirements = (props) => {
                               </div>
                             </div>
                             <div>
-                                <p
-                                  className="ms-2"
-                                  style={{
-                                    color: "#343435",
-                                    fontWeight: "500",
-                                  }}
-                                >
-                                  {data.contact}
-                                </p>
+                                <p>{openRequirementUserData.contact}</p>
                               </div>
                           </div>
 
@@ -324,6 +286,8 @@ const OpenRequirements = (props) => {
                                 style={{
                                   color: "#343435",
                                   fontWeight: "700",
+                                  marginBottom:"0"
+
                                 }}
                               >
                                 Message:
@@ -335,7 +299,7 @@ const OpenRequirements = (props) => {
                                   value=""
                                   onChange=""
                                   placeholder="Type your message here"
-                                  class="form-control"
+                                  className="form-control"
                                   id="exampleFormControlTextarea1"
                                   rows="3"
                                 ></textarea>
@@ -364,7 +328,7 @@ const OpenRequirements = (props) => {
                   id="offcanvasRight"
                   aria-labelledby="offcanvasRightLabel"
                 >
-                  <div class="offcanvas-header d-flex justify-content-end mb-0">
+                  <div className="offcanvas-header d-flex justify-content-end mb-0">
                     <button
                       type="button"
                       className="btn-close"
@@ -372,14 +336,14 @@ const OpenRequirements = (props) => {
                       aria-label="Close"
                     ></button>
                   </div>
-                  <div class="offcanvas-body mt-0">
+                  <div className="offcanvas-body mt-0">
                     <div className="row">
                       <div className="col 12">
                         <div>
                           <div className="row mb-3">
                             <div className="d-flex">
                               <div className="me-2">
-                                <img src={userphoto} width="40px" height="40px" style={{borderRadius: "50%"}} />
+                                <img src={userphoto} width="40px" height="40px" style={{borderRadius: "50%"}} alt="img"/>
                               </div>
                               <div className="ms-1">
                                 <p className="mb-1 availableAcco__card-p-name">
@@ -395,7 +359,7 @@ const OpenRequirements = (props) => {
                                   >
                                     <img
                                       src={greentick}
-                                      alt=""
+                                      alt="logo"
                                       style={{
                                         margin: "0.31rem 0.31rem 0.5rem",
                                       }}
@@ -434,7 +398,7 @@ const OpenRequirements = (props) => {
                             className="d-flex"
                             style={{ marginBottom: "1.5rem" }}
                           >
-                            <img src={greencheck} alt="" />
+                            <img src={greencheck} alt="logo" />
                             <p
                               className="openRequirements__card-p-green"
                               style={{ fontSize: "1rem", marginBottom: "0rem" }}
@@ -451,7 +415,7 @@ const OpenRequirements = (props) => {
                               Accommodation Type:
                             </p>
                             <p>
-                              {data.accommodationType} | {data.flatType}{" "}
+                              {data.acctypename} | {data.flatType}{" "}
                               {data.furnishedType
                                 ? `| ${data.furnishedType}`
                                 : ""}
@@ -482,7 +446,7 @@ const OpenRequirements = (props) => {
                               Relocation Date
                             </p>
                             <div className="d-flex">
-                              <img src={Date} />
+                              <img src={Date} alt="logo"/>
                               <p
                                 style={{
                                   marginBottom: "0rem",
@@ -502,7 +466,7 @@ const OpenRequirements = (props) => {
                               Incentives
                             </p>
                             <div className="d-flex">
-                              <img src={Currency} />
+                              <img src={Currency} alt="logo"/>
                               <p
                                 style={{
                                   marginBottom: "0rem",

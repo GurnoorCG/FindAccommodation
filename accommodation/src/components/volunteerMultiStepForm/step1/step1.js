@@ -7,14 +7,9 @@ import {
   Body,
 } from "../../utilityStyles/utilityStyles";
 import alert from "../../../images/alert.svg";
-import camera from "../../../images/camera.svg";
 import "./step1.css";
 import { MultiStepContext } from "../../stepContext/stepContext";
 import dummyProfile from "../../../images/dummyProfile.svg";
-import styled from "styled-components";
-import { useNavigate } from "react-router";
-import { storage } from "../../../config/firebase";
-import {ref,uploadBytes,getDownloadURL} from "firebase/storage";
 import FileUploadButton from "../../fileUploadButton/fileUploadButton";
 
 
@@ -28,9 +23,6 @@ const Step1 = () => {
 
   const [userInfo, setUserInfo] = useState(JSON.parse( localStorage.getItem("userData")));
 
-  function handleCheckboxChange(event) {
-    console.log(event.target.checked);
-  }
 
   const [id, setId] = useState();
   const [isIdValid, setIsIdValid] = useState(false);
@@ -44,8 +36,7 @@ const Step1 = () => {
     setId(value);
     setIsIdValid(/^(CGI|INT)([1-9]\d{0,3})$/.test(value) ? true : false);
     setUserData({ ...userData, CGI: value });
-    // console.log(isIdValid);
-    // console.log(id);
+  
   };
 
   const handleContactChange = (event) => {
@@ -60,33 +51,8 @@ const Step1 = () => {
         : false
     );
     setUserData({ ...userData, contact: phoneNumber.trim() });
-    // console.log(isContactNumberValid);
-    //   console.log(contactNumber);
-    //   console.log(userData);
+  
   };
-
-
-
-
-  // const handleImageUpload = (data) => {
-  //   console.log("Uploading Image......");
-  //   console.log(data);
-  //   if (data == null) {
-  //     console.log("not able to upload it");
-  //     return;
-  //   }
-
-  //   const imageRef = ref(storage, `userProfilePicture/${data.target.files[0].name}`);
-  //   console.log("Trying to upload it");
-  //   uploadBytes(imageRef, data.target.files[0]).then((snapshot) => {
-  //     getDownloadURL(snapshot.ref).then((url) => {
-  //       console.log("I am here with url",url);
-       
-
-  //       console.log(url);
-  //     });
-  //   });
-  // };
 
   return (
     <>
@@ -127,26 +93,14 @@ const Step1 = () => {
             <form onSubmit={e => { e.preventDefault(); }}>
                 <div className="row ">
                   <div className=" col-md-3">
-                    <img src={userData.profileUrl || dummyProfile} alt="profile" id="profilePic" />
+                    <img src={userData.profileImage || dummyProfile} alt="profile" id="profilePic" />
                   </div>
 
                 <div className=" col-md-5" style={{}}>
-                  {/* <div>
-                    <div><strong>{userData.CGI}</strong></div>
-                    <div style={{marginBottom:"2%"}}>{userData.contact}</div>
-                  </div>    */}
                   <p className="p_color" style={{ marginBottom: "0" }}>
                     <strong>{userInfo.firstName} {userInfo.lastName}  </strong>
                     <p>{userInfo.email}</p>
                   </p>
-                  {/* <p className="p_color">{currentUser.response[0].email}</p> */}
-                  {/* <input type="file" /> */}
-                    {/* <button type="file" className="d-flex imgButn" onChange={(e)=>handleImageUpload(e)}>
-                      <div className="me-2 d-flex align-items-baseline" style={{marginTop:"3%"}}>
-                        <img src={camera} alt="userProfile" />
-                      </div>
-                      <p className="">Upload Image</p>
-                    </button> */}
                     <FileUploadButton file="Volunteer" />              
                 </div>
               </div>
@@ -199,7 +153,6 @@ const Step1 = () => {
                   )}
                 </div>
               </div>
-              {console.log(userData)}
               <div className="row " style={{ marginTop: "1.5rem" }}>
                 <div className="d-flex justify-content-between">
                   <div>
@@ -210,9 +163,9 @@ const Step1 = () => {
                       Accommodations are currently available near me
                     </p>
                   </div>
-                  <div class="form-check form-switch">
+                  <div className="form-check form-switch">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="checkbox"
                       id="flexSwitchCheckDefault"
                       checked={
@@ -225,7 +178,6 @@ const Step1 = () => {
                           ...userData,
                           isNearBy: e.target.checked,
                         });
-                        console.log(e.target.checked);
                       }}
                     />
                   </div>
@@ -239,9 +191,9 @@ const Step1 = () => {
                       I am looking for a roommate
                     </p>
                   </div>
-                  <div class="form-check form-switch">
+                  <div className="form-check form-switch">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="checkbox"
                       id="flexSwitchCheckDefault"
                       checked={
@@ -267,9 +219,9 @@ const Step1 = () => {
                       I am looking for a flatmate
                     </p>
                   </div>
-                  <div class="form-check form-switch">
+                  <div className="form-check form-switch">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="checkbox"
                       id="flexSwitchCheckDefault"
                       checked={
@@ -295,7 +247,7 @@ const Step1 = () => {
                 >
                   <img
                     src={alert}
-                    alt=""
+                    alt="logo"
                     className="img2"
                     style={{ marginBottom: "0.5rem" }}
                   />
@@ -306,47 +258,47 @@ const Step1 = () => {
                 </div>
               </div>
               
-              <div class="row" style={{marginTop:"1.5rem"}}>
+              <div className="row" style={{marginTop:"1.5rem"}}>
               <div className="col-12 p_color" >Roommate/Flatmate preference</div>
-                <div class="col" style={{marginTop:"0.87rem"}}>
-                  <div class="form-check">
+                <div className="col" style={{marginTop:"0.87rem"}}>
+                  <div className="form-check">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="radio"
                       name="gender"
                       value="boys"
                       id="boysRadio"
                     />
-                    <label class="form-check-label" for="boysRadio">
-                      <span class="radio-custom p_color" ></span> Boys Only
+                    <label className="form-check-label" for="boysRadio">
+                      <span className="radio-custom p_color" ></span> Boys Only
                     </label>
                   </div>
                 </div>
-                <div class="col" style={{marginTop:"0.87rem"}}>
-                  <div class="form-check">
+                <div className="col" style={{marginTop:"0.87rem"}}>
+                  <div className="form-check">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="radio"
                       name="gender"
                       value="girls"
                       id="girlsRadio"
                     />
-                    <label class="form-check-label" for="girlsRadio">
-                      <span class="radio-custom p_color"></span> Girls Only
+                    <label className="form-check-label" for="girlsRadio">
+                      <span className="radio-custom p_color"></span> Girls Only
                     </label>
                   </div>
                 </div>
-                <div class="col" style={{marginTop:"0.87rem"}}>
-                  <div class="form-check">
+                <div className="col" style={{marginTop:"0.87rem"}}>
+                  <div className="form-check">
                     <input
-                      class="form-check-input"
+                      className="form-check-input"
                       type="radio"
                       name="gender"
                       value="both"
                       id="bothRadio"
                     />
-                    <label class="form-check-label" for="bothRadio">
-                      <span class="radio-custom p_color"></span> Both
+                    <label className="form-check-label" for="bothRadio">
+                      <span className="radio-custom p_color"></span> Both
                     </label>
                   </div>
                 </div>
@@ -359,14 +311,9 @@ const Step1 = () => {
                 <div className="col-6" style={{ padding: "0" }}>
                   <button
                     type="button"
-                    // disabled={
-                    //   ()
-                    // }
                     onClick={(event) => {
                       event.preventDefault();
                       if (isContactNumberValid && isIdValid) {
-                        // setUserData({...userData, CGI : id, contact : contactNumber})
-                        // setSaveButton(true);
                         next();
                       }
                     }}
@@ -381,7 +328,6 @@ const Step1 = () => {
           </div>
         </Body>
       </FormContainer>
-      {/* {console.log(userData)} */}
     </>
   );
 };

@@ -3,8 +3,6 @@ import Navbar from "../navbar/navbar";
 import { Wrapper, Container } from "../utilityStyles/utilityStyles";
 import { Link } from "react-router-dom";
 import axios from "../api/axios";
-import notification from "../../images/notificationIcon.svg"
-import female from "../../images/female.svg"
 
 const Notification = (props) => {
     const NOTIFICATION_URL = "/notification";
@@ -26,7 +24,6 @@ const Notification = (props) => {
       });
   }
   
-  const currentTime = new Date();
 
 function merge() {
     const mergedNotifications = [...acceptedNotifications, ...unAcceptedNotifications];
@@ -41,11 +38,6 @@ function merge() {
         merge();
       }, [acceptedNotifications, unAcceptedNotifications]);
     
-
-      {console.log(notificationData);}
-      {console.log(acceptedNotifications);}
-      {console.log(unAcceptedNotifications);}
-
     return (
         <>
         <Navbar />
@@ -54,14 +46,14 @@ function merge() {
             <div className="container-fluid">
                 <div className="row" style={{marginTop: "1%"}}>
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
+                        <ol className="breadcrumb">
+                            <li className="breadcrumb-item">
                                 <Link 
                                     to="/landingpage">
                                     Home
                                 </Link>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">
+                            <li className="breadcrumb-item active" aria-current="page">
                                 Notifications
                             </li>
                         </ol>
@@ -70,7 +62,8 @@ function merge() {
                 <div className="row">
                     <h4>Notifications</h4>
                 </div>
-                <div className="row-cols-2 row" style={{marginTop: "1%"}}>
+                <div className="scroll-bar" style={{height:"800px"}}>
+                <div className="row-cols-1 row" style={{marginTop: "1%"}}>
                 {notificationData.map((data) => (
                     <div
                       key={data.id}
@@ -79,8 +72,8 @@ function merge() {
                     { data.isrequestaccepted ? 
                     <div className="container-fluid notification_accepted_container" style={{padding:"0.75rem 0.75rem 1rem 1rem"}}>
                       <div className="row">
-                        <div className="col-1">
-                          <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}}/>
+                        <div className="col-1" style={{marginRight:'1rem'}}>
+                          <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}} alt="logo"/>
                         </div>
                         <div className="col">
                           <div>
@@ -97,8 +90,8 @@ function merge() {
                       <div>
                         <div className="container-fluid notification_unaccepted_container" style={{padding:"0.75rem 0.75rem 1rem 1rem"}}>
                         <div className="row">
-                          <div className="col-1">
-                            <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}}/>
+                          <div className="col-1" style={{marginRight:'1rem'}}>
+                            <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}} alt="logo"/>
                           </div>
                           <div className="col">
                             <div>
@@ -113,6 +106,7 @@ function merge() {
                   }
                 </div>
                 ))}
+                </div>
                 </div>
             </div>
         </Container>

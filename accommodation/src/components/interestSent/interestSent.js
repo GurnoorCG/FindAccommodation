@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import axios from "../api/axios";
 import interest from "../../images/interest.svg";
 import search from "../../images/search.svg";
-import gps from "../../images/GPS.svg";
 
 const InterestSent = (props) => {
   const INTEREST_URL = "/sentInterest";
@@ -50,7 +49,6 @@ const InterestSent = (props) => {
     setFilteredInterestData(filteredData);
   }
 
-  // {console.log(interestData);}
 
   return (
     <>
@@ -82,9 +80,9 @@ const InterestSent = (props) => {
                 <p className="interest_heading">Interest Sent</p>
               </div>
 
-              <div class="d-flex col-12 col-md-6">
+              <div className="d-flex col-12 col-md-6">
                 <div
-                  class="d-flex border w-sm-75 w-100 px-3"
+                  className="d-flex border w-sm-75 w-100 px-3"
                   style={{
                     backgroundColor: "#ffffff",
                     borderRadius: "0.25rem",
@@ -100,22 +98,22 @@ const InterestSent = (props) => {
 
                   <input
                     type="text"
-                    class="form-control form-input .demo_search-bar interesr_search-bar"
+                    className="form-control form-input .demo_search-bar interesr_search-bar"
                     style={{
                       border: "none",
                       outlineStyle: "none",
                       padding: 0,
                       marginLeft: "0.37rem",
                     }}
-                    placeholder="Select locality"
+                    placeholder="Search by Locality"
                     onChange={(e) => handleSearchLocality(e)}
                   />
                   
                 </div>
 
-                <div class="dropdown" style={{ marginLeft: "1rem" }}>
+                <div className="dropdown" style={{ marginLeft: "1rem" }}>
                   <button
-                    class="btn btn-secondary btn-light btn-sm dropdown-toggle interest_sort-btn"
+                    className="btn btn-secondary btn-light btn-sm dropdown-toggle interest_sort-btn"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -123,16 +121,16 @@ const InterestSent = (props) => {
                     Sort By
                   </button>
                   <ul
-                    class="dropdown-menu"
+                    className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton1"
                   >
                     <li>
-                      <a class="dropdown-item" href="#" onClick={(e) => sortRecentFirst(e)}>
+                      <a className="dropdown-item" href="#" onClick={(e) => sortRecentFirst(e)}>
                         Newest First
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#" onClick={(e) => sortOldestFirst(e)}>
+                      <a className="dropdown-item" href="#" onClick={(e) => sortOldestFirst(e)}>
                         Oldest First
                       </a>
                     </li>
@@ -141,7 +139,8 @@ const InterestSent = (props) => {
               </div>
             </div>
             { toggleSearch ? (
-            <div className="row-cols-md-2 row">
+            <div className="scroll-bar" style={{height:"800px"}}>
+            <div className="row-cols-1 row" style={{margin:"1rem 18rem"}}>
               { filteredInterestData.map((data) => (
                 <div className="col" >
                   <div
@@ -155,7 +154,7 @@ const InterestSent = (props) => {
                       >
                         <div style={{ display: "flex", marginTop: "0rem" }}>
                           <div style={{ marginRight: "1rem" }}>
-                            <img className="img-fluid" src={interest} />
+                            <img className="img-fluid" src={interest} alt="logo"/>
                           </div>
                           <div >
                             <Link className="interest_container-name">
@@ -185,9 +184,11 @@ const InterestSent = (props) => {
                   </div>
                 </div>
               ))}
+              </div>
             </div>
             ) : 
-            ( <div className="row-cols-md-2 row">
+            ( <div className="scroll-bar" style={{height:"800px"}}>
+              <div className="row-cols-1 row" style={{margin:"1rem 18rem"}}>
               {interestData.map((data) => (
                 <div className="col" >
                   <div
@@ -201,7 +202,7 @@ const InterestSent = (props) => {
                       >
                         <div style={{ display: "flex", marginTop: "0rem" }}>
                           <div style={{ marginRight: "1rem" }}>
-                            <img className="img-fluid" src={interest} />
+                            <img className="img-fluid" src={interest} alt="logo"/>
                           </div>
                           <div >
                             <Link className="interest_container-name">
@@ -231,6 +232,7 @@ const InterestSent = (props) => {
                   </div>
                 </div>
               ))}
+              </div>
             </div>
             )}
           </div>

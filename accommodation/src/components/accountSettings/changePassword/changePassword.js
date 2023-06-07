@@ -1,14 +1,30 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import "./changePassword.css"
+import axios from "../../api/axios";
 
 const ChangePassword = () => {
+
+  const NEW_PASS_URL = "/accPass";
+
+  const data = JSON.parse(localStorage.getItem("userData"));
   const navigate = useNavigate();
+
   const [password, setPassword] = useState("");
   const [isPasswordValid, setIsPasswordValid] = useState(false);
 
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isconfirmPasswordValid, setIsConfirmPasswordValid] = useState(false);
+
+  const [oldPassword, setOldPassword] = useState();
+ 
+
+  const handleOldPassword = (event) => {
+    const {value} = event.target;
+    setOldPassword(value);
+  }
+
+    
   const handlePasswordChange = (event) => {
     const { value } = event.target;
     setPassword(value);
@@ -19,6 +35,7 @@ const ChangePassword = () => {
         : false
     );
   };
+
   const handleConfirmPasswordChange = (event) => {
     const { value } = event.target;
     setConfirmPassword(value);
@@ -26,11 +43,23 @@ const ChangePassword = () => {
       value === password && password.length >= 8 ? true : false
     );
   };
+
   function handleNewPassword(event) {
     event.preventDefault();
-
+    axios.post(NEW_PASS_URL, {
+      email: data.email,
+      oldPassword: oldPassword,
+      newPassword: password,
+      confirmPassword: confirmPassword,
+    }).then((response) => {
+      console.log(response.data);
+      navigate("/changedpassword");
+    }).catch((error)=>{
+      console.log(error)
+    })
     navigate("/changedpassword");
   }
+
   return (
     <>
       <div className="row">
@@ -46,6 +75,21 @@ const ChangePassword = () => {
               <input
                 type="password"
                 className="form-control input inputPassword"
+                value={oldPassword}
+                onChange={(e) => handleOldPassword(e)}
+                required
+              />
+
+              <label
+                for="password"
+                className="form-label"
+                style={{ marginTop: "1rem" }}
+              >
+                New Password
+              </label>
+              <input
+                type="password"
+                className="form-control input inputPassword"
                 value={password}
                 onChange={handlePasswordChange}
                 required
@@ -56,7 +100,7 @@ const ChangePassword = () => {
                 className="form-label"
                 style={{ marginTop: "1rem" }}
               >
-                New Password
+                Confirm Password
               </label>
               <input
                 type="password"

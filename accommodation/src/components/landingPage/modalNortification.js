@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-// import "./modalAvailableAccommodation.css";
 import greentick from "../../images/greentickfinal.svg";
-import femaleIcon from "../../images/femaleIcon.svg";
 import { Link, useNavigate } from "react-router-dom";
 import vector from "../../images/alert.svg";
 import axios from "axios";
@@ -50,17 +48,17 @@ const ModalNortification = (props) => {
   return (
     <>
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog  modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
+        <div className="modal-dialog  modal-dialog-centered">
+          <div className="modal-content">
+            <div className="modal-header">
               <h5
-                class="modal-title"
+                className="modal-title"
                 style={{
                   color: "#343435",
                   fontWeight: "700",
@@ -70,13 +68,13 @@ const ModalNortification = (props) => {
               </h5>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
 
-            <div class="modal-body">
+            <div className="modal-body">
               <form
                 onSubmit={() => {
                   handleSubmit();
@@ -103,7 +101,7 @@ const ModalNortification = (props) => {
                       <div className="d-flex verified-icon">
                         <img
                           src={greentick}
-                          
+                          alt="logo"
                         />
                         <p className="modal_verified-p"
                         
@@ -112,7 +110,7 @@ const ModalNortification = (props) => {
                       <div className="d-flex alert-message">
                       <img
                           src={vector}
-                          alt=""
+                          alt="logo"
                           style={{marginTop:'0.15rem'}}
                         />
                       <p className="alert-message-p">This person is new joinner</p>
