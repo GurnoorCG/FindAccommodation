@@ -325,7 +325,7 @@ const LandingPage = (props) => {
                           >
                             <div style={{ display: "flex" }}>
                               <div style={{ marginRight: "1rem" }}>
-                                <img className="img-fluid" src={Interest} />
+                                <img className="img-fluid" src={data.profileimage} height={"35px"} width={"35px"} style={{borderRadius: "50%"}}/>
                               </div>
                               <div>
                                 <Link>
@@ -401,7 +401,7 @@ const LandingPage = (props) => {
                         <div className="container-fluid notification_unaccepted_container" style={{padding:"0.75rem 0.75rem 1rem 1rem"}}>
                         <div className="row">
                           <div className="col-1" style={{marginRight:'1rem'}}>
-                            {/* <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}} alt="img"/> */}
+                            <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}} alt="img"/>
                           </div>
                           <div className="col">
                             <div>

@@ -202,7 +202,7 @@ const InterestSent = (props) => {
                       >
                         <div style={{ display: "flex", marginTop: "0rem" }}>
                           <div style={{ marginRight: "1rem" }}>
-                            <img className="img-fluid" src={interest} alt="logo"/>
+                            <img className="img-fluid" src={data.profileimage} alt="logo" height={"35px"} width={"35px"} style={{borderRadius: "50%"}}/>
                           </div>
                           <div >
                             <Link className="interest_container-name">
