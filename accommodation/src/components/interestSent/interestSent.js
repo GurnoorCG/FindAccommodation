@@ -25,6 +25,7 @@ const InterestSent = (props) => {
       .get(INTEREST_URL, { params: { userId: userData.id } } )
       .then((response) => {
         setInterestData(response.data.response);
+        console.log(interestData);
       });
   }
 
@@ -154,7 +155,7 @@ const InterestSent = (props) => {
                       >
                         <div style={{ display: "flex", marginTop: "0rem" }}>
                           <div style={{ marginRight: "1rem" }}>
-                            <img className="img-fluid" src={interest} alt="logo"/>
+                            <img className="img-fluid" src={data.profileimage} alt="logo"/>
                           </div>
                           <div >
                             <Link className="interest_container-name">
@@ -202,7 +203,7 @@ const InterestSent = (props) => {
                       >
                         <div style={{ display: "flex", marginTop: "0rem" }}>
                           <div style={{ marginRight: "1rem" }}>
-                            <img className="img-fluid" src={interest} alt="logo"/>
+                            <img className="img-fluid" src={data.profileimage} alt="logo" height={"42px"} width={"42px"} style={{borderRadius: "50%"}}/>
                           </div>
                           <div >
                             <Link className="interest_container-name">
