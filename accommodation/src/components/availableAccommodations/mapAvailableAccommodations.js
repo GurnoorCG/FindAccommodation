@@ -117,10 +117,10 @@ const MapAvailableAccommodations = (props) => {
                         className="d-flex align-item-center"
                         style={{ marginBottom: "0.31rem" }}
                       >
-                        <p className="availableAcco__card-p-main">Landmark:</p>
-                        <p className="availableAcco__card-p-sector">
+                        <p className="availableAcco__card-p-main">Landmark:
+                        <span className="availableAcco__card-p-sector">
                           {data.locality}, Noida
-                        </p>
+                        </span></p>
                       </div>
 
                       <div className="d-flex mb-3">

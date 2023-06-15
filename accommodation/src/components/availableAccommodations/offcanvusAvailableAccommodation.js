@@ -81,7 +81,7 @@ const OffcanvusAvailableAccommodation = (props) => {
                   >
                     <img
                       src={data.profileimage}
-                      style={{ width: "9.37rem", height: "9.37rem" }}
+                      style={{ width: "9.37rem", height: "9.37rem", borderRadius: "50%"}}
                       alt="img"
                     />
                     <p className="container_fullname" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>

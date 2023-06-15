@@ -11,6 +11,8 @@ const ModalAvailableAccommodation = (props) => {
   const [btnColor, setBtnColor] = useState(false);
 
   const userData = localStorage.getItem("userData");
+
+  // {console.log(props.modalData);}
   const [data, setData] = useState(JSON.parse(userData));
 
   const [contact, setContact] = useState("");
@@ -86,7 +88,7 @@ const ModalAvailableAccommodation = (props) => {
                     <div className="me-1">
                       <img
                         className="modal-photo"
-                        src={data.profileImage}
+                        src={props.modalData.profileimage}
                         alt="profile"
                       />
                     </div>
@@ -99,7 +101,7 @@ const ModalAvailableAccommodation = (props) => {
                             fontWeight: "700",
                           }}
                         >
-                          {data.firstName} {data.lastName}
+                          {props.modalData.firstname} {props.modalData.lastname}
                         </p>
                       </div>
                       <div className="d-flex">
@@ -113,7 +115,6 @@ const ModalAvailableAccommodation = (props) => {
                           <div className="ms-2">
                             <img
                               src={data.isVerified ? greentick : ""}
-                              alt="profile"
                             />
                           </div>
                           <div className="me-2">
@@ -121,7 +122,7 @@ const ModalAvailableAccommodation = (props) => {
                               className="mb-0 ms-2 "
                               style={{ color: "#0C9A47" }}
                             >
-                              {data.isVerified ? "Verified" : ""}
+                              {data.isVerified ? "Verified" : "Not Verified"}
                             </p>
                           </div>
                         </div>
@@ -132,12 +133,12 @@ const ModalAvailableAccommodation = (props) => {
 
                 <div className="row">
                   <p className="modal_attribute">Email id:</p>
-                  <p className="modal_value">{data.email}</p>
+                  <p className="modal_value">{props.modalData.email}</p>
                 </div>
 
                 <div className="row">
                   <p className="modal_attribute">Contact Number:</p>
-                  <p className="modal_value">{data.contact}</p>
+                  <p className="modal_value">0987654321</p>
                 </div>
                 {data.university ? (
                   <>

@@ -13,6 +13,8 @@ const OpenRequirements = (props) => {
   const userData = JSON.parse(localStorage.getItem("userData"));
  
   const [openRequirementUserData, setOpenRequirementUserData] = useState(userData);
+
+  {console.log(props.sendingData);}
   // setLocalData(JSON.parse(userData));
   function checkAccType(info) {
     if (info["1rk"] == true) {
@@ -217,13 +219,13 @@ const OpenRequirements = (props) => {
                                       fontWeight: "700",
                                     }}
                                   >
-                                    {console.log("data:",openRequirementUserData)}
-                                    {openRequirementUserData.firstName} {openRequirementUserData.lastName}
+                                    {/* {console.log("data:",openRequirementUserData)} */}
+                                    {data.firstname} {data.lastname}
                                   </p>
                                 </div>
                                 <div className="d-flex">
                                   <p className="mb-0  openRequirements__card-p-id">
-                                    {openRequirementUserData.cgiid}
+                                    {data.cgiid}
                                   </p>
                                 </div>
                               </div>
@@ -254,7 +256,7 @@ const OpenRequirements = (props) => {
                                     
                                   }}
                                 >
-                                {openRequirementUserData.email}
+                                {data.email}
                                 </p>
                               </div>
                           </div>
@@ -275,7 +277,7 @@ const OpenRequirements = (props) => {
                               </div>
                             </div>
                             <div>
-                                <p>{openRequirementUserData.contact}</p>
+                                <p>{data.contact}</p>
                               </div>
                           </div>
 
@@ -343,7 +345,7 @@ const OpenRequirements = (props) => {
                           <div className="row mb-3">
                             <div className="d-flex">
                               <div className="me-2">
-                                <img src={userphoto} width="40px" height="40px" style={{borderRadius: "50%"}} alt="img"/>
+                                <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}} alt="img"/>
                               </div>
                               <div className="ms-1">
                                 <p className="mb-1 availableAcco__card-p-name">
@@ -415,10 +417,17 @@ const OpenRequirements = (props) => {
                               Accommodation Type:
                             </p>
                             <p>
-                              {data.acctypename} | {data.flatType}{" "}
-                              {data.furnishedType
-                                ? `| ${data.furnishedType}`
-                                : ""}
+                              {data.acctypename.toUpperCase()} | {data.flatType}&nbsp;
+                              {data.bhk ? `${"1 BHK"} | ` : ""}
+                              {data.bhk ? `${"1 RK"} | ` : ""}
+                              {data.bhk ? `${"2 BHK"} | ` : ""}
+                              {data.bhk ? `${"2 RK"} | ` : ""}
+                              {data.bhk ? `${"3 BHK"} | ` : ""}
+                              {data.bhk ? `${"4 BHK"} | ` : ""}
+                              {data.singlesharing ? `${"Single Sharing"} | ` : ""}  
+                              {data.doublesharing ? `${"Double Sharing"} | ` : ""}  
+                              {data.triplesharing ? `${"Triple Sharing"} | ` : ""}  
+                              {data.semifurnished ? `${"Semi Furnished"} | ` : ""}
                             </p>
                           </div>
 
