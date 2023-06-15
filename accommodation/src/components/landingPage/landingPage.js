@@ -73,7 +73,6 @@ const LandingPage = (props) => {
       })  ;
   }
 
-  const currentTime = new Date();
 
   function merge() {
     let mergedNotificationsData = [];
@@ -125,9 +124,7 @@ const LandingPage = (props) => {
     
     // handleLanding();
     handleInterest();
-
-    
-  }, []);
+  }, [loading]);
 
   const handleAvailableAccommodation = (event) => {
     event.preventDefault();
@@ -312,7 +309,7 @@ const LandingPage = (props) => {
                   {interestLength === 0 ?  (
                     <NoInterest />
                   ) :(
-                    interestData?.map((data,index) => (
+                      interestData?.map((data,index) => (
                       <div
                         key={data.id}
                         className="col interest__container"
@@ -325,7 +322,7 @@ const LandingPage = (props) => {
                           >
                             <div style={{ display: "flex" }}>
                               <div style={{ marginRight: "1rem" }}>
-                                <img className="img-fluid" src={data.profileimage} height={"35px"} width={"35px"} style={{borderRadius: "50%"}}/>
+                                <img src={data.profileimage} height={"40px"} width={"40px"} style={{borderRadius: "50%"}}/>
                               </div>
                               <div>
                                 <Link>

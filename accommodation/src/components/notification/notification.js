@@ -10,6 +10,7 @@ const Notification = (props) => {
     const [acceptedNotifications, setAcceptedNotifications] = useState([]);
     const [unAcceptedNotifications, setUnAcceptedNotifications] = useState([]);
     const [notificationData, setNotificationData] = useState([]);
+    const [notificationLength, setNotificationLength] = useState(0);
 
     const userData = localStorage.getItem("userData");
 
@@ -27,11 +28,27 @@ const Notification = (props) => {
   
 
 function merge() {
-    const mergedNotifications = [acceptedNotifications, unAcceptedNotifications];
-    mergedNotifications.sort((a, b) => {
-      return b.createdate - a.createdate;
-    });
-    setNotificationData(mergedNotifications);
+  let mergedNotificationsData = [];
+    
+  if (acceptedNotifications && acceptedNotifications.length > 0) {
+ 
+    mergedNotificationsData = mergedNotificationsData.concat(acceptedNotifications);
+  }
+  if (unAcceptedNotifications && unAcceptedNotifications.length > 0) {
+    
+    mergedNotificationsData = mergedNotificationsData.concat(unAcceptedNotifications);
+  }
+
+ 
+ 
+  mergedNotificationsData.sort((a, b) => {
+    return b.createdate - a.createdate;
+  });
+  setNotificationLength(mergedNotificationsData.length)
+  console.log(mergedNotificationsData);
+  console.log(notificationLength);
+  return setNotificationData(mergedNotificationsData);
+
   }
 
     useEffect(() => {
