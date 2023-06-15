@@ -22,7 +22,8 @@ const Step1 = () => {
     useContext(MultiStepContext);
 
   const [userInfo, setUserInfo] = useState(JSON.parse( localStorage.getItem("userData")));
-
+  // console.log(userInfo);
+  // console.log(userData);
 
   const [id, setId] = useState();
   const [isIdValid, setIsIdValid] = useState(false);
@@ -93,7 +94,7 @@ const Step1 = () => {
             <form onSubmit={e => { e.preventDefault(); }}>
                 <div className="row ">
                   <div className=" col-md-3">
-                    <img src={userData.profileImage || dummyProfile} alt="profile" id="profilePic" />
+                    <img src={userData.profileImage || dummyProfile || userInfo.profileimage} alt="profile" id="profilePic" />
                   </div>
 
                 <div className=" col-md-5" style={{}}>

@@ -122,12 +122,13 @@ const OpenRequirements = (props) => {
                         style={{ marginBottom: "0rem" }}
                       >
                         Preferred Location :
-                      </p>
-                      <p
+                      
+                      <span
                         className="openRequirements__card-p-sector"
                         style={{ marginBottom: "0rem" }}
                       >
                         {data.locality}
+                      </span>
                       </p>
                     </div>
 
