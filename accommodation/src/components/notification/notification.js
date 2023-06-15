@@ -21,12 +21,13 @@ const Notification = (props) => {
       .then((response) => {
         setAcceptedNotifications(response.data.acceptedRequest);
         setUnAcceptedNotifications(response.data.unAcceptedRequest);
+
       });
   }
   
 
 function merge() {
-    const mergedNotifications = [...acceptedNotifications, ...unAcceptedNotifications];
+    const mergedNotifications = [acceptedNotifications, unAcceptedNotifications];
     mergedNotifications.sort((a, b) => {
       return b.createdate - a.createdate;
     });
@@ -66,22 +67,22 @@ function merge() {
                 <div className="row-cols-1 row" style={{marginTop: "1%"}}>
                 {notificationData.map((data) => (
                     <div
-                      key={data.id}
+                      key={data?.id}
                       style={{ marginBottom: "1rem" }}
                     >
-                    { data.isrequestaccepted ? 
+                    { data?.isrequestaccepted ? 
                     <div className="container-fluid notification_accepted_container" style={{padding:"0.75rem 0.75rem 1rem 1rem"}}>
                       <div className="row">
                         <div className="col-1" style={{marginRight:'1rem'}}>
-                          <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}} alt="logo"/>
+                          <img src={data?.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}} alt="logo"/>
                         </div>
                         <div className="col">
                           <div>
-                            <strong>{data.firstname} {data.lastname}</strong> has accepted your accommodation request. You can now
+                            <strong>{data?.firstname} {data?.lastname}</strong> has accepted your accommodation request. You can now
                             connect with him on his.
                           </div>
-                          <div>Email ID: <span style={{color: "#007FD3"}}><strong>{data.email}</strong></span></div>
-                          <div>Contact: <span style={{color: "#007FD3"}}><strong>{data.contact}</strong></span></div>
+                          <div>Email ID: <span style={{color: "#007FD3"}}><strong>{data?.email}</strong></span></div>
+                          <div>Contact: <span style={{color: "#007FD3"}}><strong>{data?.contact}</strong></span></div>
                           <div>{}</div>
                         </div>
                       </div>
@@ -91,11 +92,11 @@ function merge() {
                         <div className="container-fluid notification_unaccepted_container" style={{padding:"0.75rem 0.75rem 1rem 1rem"}}>
                         <div className="row">
                           <div className="col-1" style={{marginRight:'1rem'}}>
-                            <img src={data.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}} alt="logo"/>
+                            <img src={data?.profileimage} width="40px" height="40px" style={{borderRadius: "50%"}} alt="logo"/>
                           </div>
                           <div className="col">
                             <div>
-                              <strong>{data.firstname} {data.lastname}</strong> has express interest on your
+                              <strong>{data?.firstname} {data?.lastname}</strong> has express interest on your
                               accommodation posting
                             </div>
                             <div><span style={{color: "#007FD3"}}><strong>Show Message</strong></span></div>

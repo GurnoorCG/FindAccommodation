@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
-  MainContainer,
   TopContainer,
-  MainHeading,
   MidContainer,
   VolunteerContainer,
   RequirementContainer,
@@ -29,16 +27,16 @@ import { staticInterest, staticNotification } from "./staticData";
 
 const LandingPage = (props) => {
   const INTEREST_URL = "/sentInterest";
-  const [interestData, setInterestData] = useState(staticInterest);
+  const [interestData, setInterestData] = useState([]);
   const [interestLength, setInterestLength] = useState([]);
-  const maxInterestToShow = 4;
-  const maxNotificationsToShow = 4;
+  
 
   const NOTIFICATION_URL = "/notification";
 
   const [acceptedNotifications, setAcceptedNotifications] = useState([]);
   const [unAcceptedNotifications, setUnAcceptedNotifications] = useState([]);
-  const [notificationData, setNotificationData] = useState(staticNotification);
+  const [notificationData, setNotificationData] = useState([]);
+  const [notificationLength,setNotificationLength] = useState(0);
   const [loading, setloading] = useState(true);
 
   const navigate = useNavigate();
@@ -55,6 +53,8 @@ const LandingPage = (props) => {
       .then((response) => {
         setInterestData(response.data.response);
         setInterestLength(interestData.length);
+        console.log(interestData);
+        console.log(interestData?.length);
       })
       .catch((error) => {
         console.log(error);
@@ -67,35 +67,37 @@ const LandingPage = (props) => {
       .then((response) => {
         setAcceptedNotifications(response.data.acceptedRequest);
         setUnAcceptedNotifications(response.data.unAcceptedRequest);
-      });
+        setNotificationLength()
+      }).catch( (error) =>{
+        console.log(error)
+      })  ;
   }
 
   const currentTime = new Date();
 
   function merge() {
-    let mergedNotificationsData = [
-     acceptedNotifications,
-      unAcceptedNotifications,
-    ];
+    let mergedNotificationsData = [];
+    
+    if (acceptedNotifications && acceptedNotifications.length > 0) {
+   
+      mergedNotificationsData = mergedNotificationsData.concat(acceptedNotifications);
+    }
+    if (unAcceptedNotifications && unAcceptedNotifications.length > 0) {
+      
+      mergedNotificationsData = mergedNotificationsData.concat(unAcceptedNotifications);
+    }
+
+   
+   
     mergedNotificationsData.sort((a, b) => {
       return b.createdate - a.createdate;
     });
+    setNotificationLength(mergedNotificationsData.length)
+    console.log(mergedNotificationsData);
+    console.log(notificationLength);
     return setNotificationData(mergedNotificationsData);
 
-    // const updatedNotifications = mergedNotifications.map((notification) => {
-    //   const createtime = new Date(notification.createtime);
-    //   // console.log(createtime);
-    //   const timeDifference = currentTime - notification.createtime;
-    //   console.log(timeDifference);
-    //   const minutesDifference = Math.floor(timeDifference / (1000 * 60)); // Convert milliseconds to minutes
-
-    //   return {
-    //     ...notification,
-    //     timeDifference: minutesDifference,
-    //   };
-    // });
-
-    // setNotificationData(updatedNotifications);
+    
   }
 
   // async function handleLanding() {
@@ -117,6 +119,15 @@ const LandingPage = (props) => {
       return setloading(false);
     }, 5000);
   }, [loading]);
+
+  useEffect(() => {
+    
+    
+    // handleLanding();
+    handleInterest();
+
+    
+  }, []);
 
   const handleAvailableAccommodation = (event) => {
     event.preventDefault();
@@ -288,7 +299,7 @@ const LandingPage = (props) => {
                   Interest Sent
                   <span
                     className={
-                      interestData?.length === 0 ? "d-none" : "showLink"
+                      interestLength?.length === 0 ? "d-none" : "showLink"
                     }
                   >
                     <Link to="/interestsent" style={{ fontSize: "16px" }}>
@@ -297,8 +308,10 @@ const LandingPage = (props) => {
                   </span>
                 </p>
 
-                <div className="scroll-bar">
-                  {interestData?.length !== 0 ? (
+                
+                  {interestLength === 0 ?  (
+                    <NoInterest />
+                  ) :(
                     interestData?.map((data,index) => (
                       <div
                         key={data.id}
@@ -343,17 +356,15 @@ const LandingPage = (props) => {
                         </div>
                       </div>
                     ))
-                  ) : (
-                    <NoInterest />
                   )}
-                </div>
+                
               </ShortlistContainer>
               <NotificationContainer className=" col-md-6">
                 <p className="landingPage__head" style={{ color: "black" }}>
                   Notifications
                   <span
                     className={
-                      notificationData?.length === 0 ? "d-none" : "showLink"
+                      notificationLength?.length === 0 ? "d-none" : "showLink"
                     }
                   >
                     <Link to="/notifications" style={{ fontSize: "16px" }}>
@@ -362,7 +373,8 @@ const LandingPage = (props) => {
                   </span>
                 </p>
                 <div className="scroll-bar">
-                  { notificationData?.length !== 0 && !loading ? notificationData?.map((data) => (
+                  { notificationLength === 0 ? <NoNortification />
+                  :(notificationData?.map((data) => (
                     <div
                     
                       key={data?.id}
@@ -402,7 +414,7 @@ const LandingPage = (props) => {
                       </div>
                   }
                 </div>
-                )): <NoNortification />}
+                ))) }
                 </div>
               </NotificationContainer>
             </DynamicContainer>
