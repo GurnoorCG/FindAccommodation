@@ -25,7 +25,7 @@ const InterestSent = (props) => {
       .get(INTEREST_URL, { params: { userId: userData.id } } )
       .then((response) => {
         setInterestData(response.data.response);
-      });
+      }).catch((error)=>{console.log(error)});
   }
 
   const sortRecentFirst = (event) => {
