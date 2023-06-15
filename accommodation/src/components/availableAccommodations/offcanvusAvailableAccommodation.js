@@ -80,7 +80,7 @@ const OffcanvusAvailableAccommodation = (props) => {
                     style={{ marginBottom: "1rem" }}
                   >
                     <img
-                      src={userphoto}
+                      src={data.profileimage}
                       style={{ width: "9.37rem", height: "9.37rem" }}
                       alt="img"
                     />
@@ -94,7 +94,7 @@ const OffcanvusAvailableAccommodation = (props) => {
                   <div className="row" style={{ marginBottom: "0.5rem" }}>
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                       <p style={{ fontWeight: "700", marginBottom: "0" }}>
-                        Landmark:{" "}
+                        Landmark:&nbsp;
                       </p>
                       <p style={{ marginBottom: "0" }}>{data.locality}</p>
                     </div>
